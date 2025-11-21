@@ -17,6 +17,11 @@ in {
      then null
      else {
        inherit name;
-       value = { inherit locked refetched; };
+       value = {
+         inherit locked;
+         refetched = (builtins.removeAttrs refetched [ "outPath" ]) // {
+           out-path = refetched.outPath;
+         };
+       };
      }) (builtins.attrNames loaded.nodes)));
 }
