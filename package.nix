@@ -20,6 +20,6 @@
     trap cleanup EXIT
 
     mkdir "$tmp"/store
-    HOME="$tmp" nix eval --file ${./find-lock-mismatches.nix} --arg lock "$(realpath "$lockfile")" --json --store "$(realpath "$tmp")"/store res
+    XDG_CACHE_HOME="$tmp/cache" nix eval --file ${./find-lock-mismatches.nix} --arg lock "$(realpath "$lockfile")" --json --store "$(realpath "$tmp")"/store res
   '';
 }
