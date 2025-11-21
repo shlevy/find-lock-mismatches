@@ -1,0 +1,9 @@
+#+TITLE: find-lock-mismatches
+
+See if ~nix~ in your ~PATH~ agrees with a given lockfile.
+
+* Usage
+
+~nix run github:shlevy/find-lock-mismatches -- LOCKFILE > mismatches.json~
+
+Standard out contains a JSON object of nodes where ~nix~ reports a different narHash than the lockfile.
