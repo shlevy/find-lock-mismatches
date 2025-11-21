@@ -2,8 +2,11 @@
 let
   loaded = builtins.fromJSON (builtins.readFile lock);
 
+  optional = pred: elem: if pred then [ elem ] else [];
+
   refetch = locked: let
-    locked' = builtins.removeAttrs locked [ "lastModified" "narHash" "revCount" ];
+    badAttrs = [ "lastModified" "narHash" "revCount" ] ++ optional (locked.type == "git") "dir";
+    locked' = builtins.removeAttrs locked badAttrs;
   in builtins.fetchTree locked';
 in {
   res = builtins.listToAttrs (builtins.filter (x: x != null) (map (name: let
